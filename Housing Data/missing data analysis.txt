@@ -1,0 +1,79 @@
+Fix missing values for below using None or 0 instead of NA:
+(Check with TA that if the data itself contains NA, how is it given in the dataset - 'NA' or simply NA. Since it may be mixed up)
+Alley: 'None' (both)
+BsmtFullBath : 0 (has NA for 2 rows with no basement) (test)
+BsmtHalfBath : 0 (has NA for 2 rows with no basement) (test)
+FireplaceQu : 'None' (has NA for all houses with 0 fireplaces) (both)
+Fence: 'None' (both)
+
+Action 1: Fix missing values in train + test data
+Fix missing values for below using mice
+Lot Frontage
+MSZoning
+Utilities
+Exterior1st
+Exterior2nd
+Electrical
+KitchenQual
+SaleType
+
+Fix using both approaches:
+
+MasVnr related attributes - 
+Split MasVnr related attributes into training and test datasets:
+Training data:
+MasVnrType : 'None'
+MasVnrArea : 0
+
+Test data:
+MasVnrType : 'None' for 15 records where area is NA. Remaining 1 by mice
+MasVnrArea : 0
+
+Basement related attributes:
+Split basement related attributes into training and test datasets:
+Basement or no basement is decided using the attribute TotalBsmtSF. If TotalBsmtSF = 0, then no basement.
+Training data:
+BsmtQual = 'None'
+BsmtCond = 'None'
+BsmtExposure = 'None' for 37 rows that have no basement
+BsmtFinType1 = 'None'
+BsmtFinType2 = 'None' for 37 rows that have no basement
+
+Test data: Has one record which has NA for TotalBsmtSF. Replace it with zero and the corresponding 3 basement area columns as well with 0. Thus, total no basement records in test data = 0 + NA rows = 42 rows
+BsmtFinSF1, BsmtFinSF2, BsmtUnfSF and TotalBsmtSF = 0
+BsmtQual = 'None' for 42 rows that have no basement
+BsmtCond = 'None' for 42 rows that have no basement
+BsmtExposure = 'None' for 42 rows that have no basement
+BsmtFinType1 = 'None'
+BsmtFinType2 = 'None' 
+
+Remaining NA values for basement related attributes to be fixed using mice
+
+Garage related attributes:
+Training data:
+GarageType, GarageYrBlt, GarageFinish, GarageQual, GarageCond: 'None'
+
+Test data:
+GarageType: 'None' for all 76 rows with NA
+GarageYrBlt: 'None' for 76 with no garage type
+GarageFinish: 'None' for 76 with no garage type
+GarageCar: To be predicted for the only 1 NA value in the test dataset
+GarageArea: To be predicted for the only 1 NA value in the test dataset
+GarageQual: 'None' for 76 with no garage type
+GarageCond: 'None' for 76 with no garage type
+
+Pool related attributes:
+Training data:
+PoolQC = 'None' for all 1453 houses since pool area = 0 for all these records
+
+Test data:
+PoolQC = 'None' for 1453 rows where pool area = 0
+Remaining 3 to be predicted using mice
+
+Miscellaneous attributes:
+Training data:
+MiscFeature: 'None' (all these NA rows have 0 misc value)
+
+Test Data:
+MiscFeature: None for 1407 rows where Misc Valu = 0
+Remaining one to be predicted using mice
