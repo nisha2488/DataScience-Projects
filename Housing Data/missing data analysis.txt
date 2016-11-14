@@ -55,12 +55,12 @@ GarageType, GarageYrBlt, GarageFinish, GarageQual, GarageCond: 'None'
 
 Test data:
 GarageType: 'None' for all 76 rows with NA
-GarageYrBlt: 'None' for 76 with no garage type
-GarageFinish: 'None' for 76 with no garage type
+GarageYrBlt: 'None' for 76 with no garage type. Remaining 2 to be done using mice.
+GarageFinish: 'None' for 76 with no garage type. Remaining 2 to be done using mice.
 GarageCar: To be predicted for the only 1 NA value in the test dataset
 GarageArea: To be predicted for the only 1 NA value in the test dataset
-GarageQual: 'None' for 76 with no garage type
-GarageCond: 'None' for 76 with no garage type
+GarageQual: 'None' for 76 with no garage type. Remaining 2 to be done using mice.
+GarageCond: 'None' for 76 with no garage type. Remaining 2 to be done using mice.
 
 Pool related attributes:
 Training data:

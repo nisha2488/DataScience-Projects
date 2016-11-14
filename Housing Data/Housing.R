@@ -37,9 +37,21 @@ test_data$FireplaceQu <- na_to_none(test_data$FireplaceQu)
 train_data$Fence <- na_to_none(train_data$Fence)
 test_data$Fence <- na_to_none(test_data$Fence)
 
+train_data$PoolQC <- na_to_none(train_data$PoolQC)
+
+test_data$PoolQC <- as.character(test_data$PoolQC)
+test_data$PoolQC[(test_data$PoolArea == 0) & is.na(test_data$PoolQC)] <- 'None'
+test_data$PoolQC <- as.factor(test_data$PoolQC)
+
+train_data$MiscFeature <- na_to_none(train_data$MiscFeature)
+
+test_data$MiscFeature <- as.character(test_data$MiscFeature)
+test_data$MiscFeature[(test_data$MiscVal == 0) & is.na(test_data$MiscFeature)] <- 'None'
+test_data$MiscFeature <- as.factor(test_data$MiscFeature)
+
 train_data$MasVnrType <- na_to_none(train_data$MasVnrType)
 # None is already a factor in test data for the below column
-test_data$MasVnrType[is.na(test_data$MasVnrArea)] <- 'None'
+test_data$MasVnrType[is.na(test_data$MasVnrArea) & is.na(test_data$MasVnrType)] <- 'None'
 
 train_data$MasVnrArea <- na_to_zero(train_data$MasVnrArea)
 test_data$MasVnrArea <- na_to_zero(test_data$MasVnrArea)
@@ -59,13 +71,59 @@ train_data$BsmtFinType2[(train_data$TotalBsmtSF == 0) & is.na(train_data$BsmtFin
 train_data$BsmtFinType2 <- as.factor(train_data$BsmtFinType2)
 
 # Basement related attributes for test data
+test_data$TotalBsmtSF <- na_to_zero(test_data$TotalBsmtSF)
+test_data$BsmtFinSF1 <- na_to_zero(test_data$BsmtFinSF1)
+test_data$BsmtFinSF2 <- na_to_zero(test_data$BsmtFinSF2)
+test_data$BsmtUnfSF <- na_to_zero(test_data$BsmtUnfSF)
 
 
-test_data$Alley <- na_to_none(test_data$Alley)
+test_data$BsmtQual <- as.character(test_data$BsmtQual)
+test_data$BsmtQual[(test_data$TotalBsmtSF == 0) & is.na(test_data$BsmtQual)] <- 'None'
+test_data$BsmtQual <- as.factor(test_data$BsmtQual)
 
+test_data$BsmtCond <- as.character(test_data$BsmtCond)
+test_data$BsmtCond[(test_data$TotalBsmtSF == 0) & is.na(test_data$BsmtCond)] <- 'None'
+test_data$BsmtCond <- as.factor(test_data$BsmtCond)
+
+test_data$BsmtExposure <- as.character(test_data$BsmtExposure)
+test_data$BsmtExposure[(test_data$TotalBsmtSF == 0) & is.na(test_data$BsmtExposure)] <- 'None'
+test_data$BsmtExposure <- as.factor(test_data$BsmtExposure)
+
+test_data$BsmtFinType1 <- na_to_none(test_data$BsmtFinType1)
+
+test_data$BsmtFinType2 <- na_to_none(test_data$BsmtFinType2)
+
+# Garage related attributes for training data
+train_data$GarageType <- na_to_none(train_data$GarageType)
+# Yet to decide whether to factor the year column or not
+# train_data$GarageYrBlt <- na_to_zero(train_data$GarageYrBlt)
+train_data$GarageYrBlt <- na_to_none(train_data$GarageYrBlt)
+train_data$GarageFinish <- na_to_none(train_data$GarageFinish)
+train_data$GarageQual <- na_to_none(train_data$GarageQual)
+train_data$GarageCond <- na_to_none(train_data$GarageCond)
+
+# Garage related attributes for test data
+
+test_data$GarageYrBlt <- as.character(test_data$GarageYrBlt)
+test_data$GarageYrBlt[is.na(test_data$GarageType) & is.na(test_data$GarageYrBlt)] <- 'None'
+test_data$GarageYrBlt <- as.factor(test_data$GarageYrBlt)
+
+test_data$GarageFinish <- as.character(test_data$GarageFinish)
+test_data$GarageFinish[is.na(test_data$GarageType) & is.na(test_data$GarageFinish)] <- 'None'
+test_data$GarageFinish <- as.factor(test_data$GarageFinish)
+
+test_data$GarageQual <- as.character(test_data$GarageQual)
+test_data$GarageQual[is.na(test_data$GarageType) & is.na(test_data$GarageQual)] <- 'None'
+test_data$GarageQual <- as.factor(test_data$GarageQual)
+
+test_data$GarageCond <- as.character(test_data$GarageCond)
+test_data$GarageCond[is.na(test_data$GarageType) & is.na(test_data$GarageCond)] <- 'None'
+test_data$GarageCond <- as.factor(test_data$GarageCond)
+
+test_data$GarageType <- na_to_none(test_data$GarageType)
 
 # Merge the train and test datasets after replacing NA's wherever possible
 housing_data <- rbind(train_data, test_data)
 
 # Get information regarding categorical and continuous variables and also factor levels
-str(housing_data)
+summary(housing_data)
