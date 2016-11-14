@@ -27,7 +27,7 @@ MasVnrArea : 0
 
 Test data:
 MasVnrType : 'None' for 15 records where area is NA. Remaining 1 by mice
-MasVnrArea : 0
+MasVnrArea : 0 
 
 Basement related attributes:
 Split basement related attributes into training and test datasets:

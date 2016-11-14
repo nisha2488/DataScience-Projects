@@ -9,27 +9,60 @@ test_data <- read.csv("test.csv")
 test_data$SalePrice <- rep(NA, 1459)
 
 
-# Funtion to convert NA to None or 0
-na_to_val <- function (col, value ) {
+# Funtion to convert NA to None
+na_to_none <- function (col) {
   col <- as.character(col)
-  col[is.na(col)] <- value
+  col[is.na(col)] <- 'None'
   col <- as.factor(col)
   return(col)
 }
 
+# Funtion to convert NA to 0
+na_to_zero <- function (col) {
+  col[is.na(col)] <- 0
+  return(col)
+}
+
 # Replace NA's with 'None' wherever required in training and test datasets
-train_data$Alley <- na_to_val(train_data$Alley, 'None')
-test_data$Alley <- na_to_val(test_data$Alley, 'None')
+train_data$Alley <- na_to_none(train_data$Alley)
+test_data$Alley <- na_to_none(test_data$Alley)
 
-test_data$BsmtFullBath <- na_to_val(test_data$BsmtFullBath, 0)
+test_data$BsmtFullBath <- na_to_zero(test_data$BsmtFullBath)
 
-test_data$BsmtHalfBath <- na_to_val(test_data$BsmtHalfBath, 0)
+test_data$BsmtHalfBath <- na_to_zero(test_data$BsmtHalfBath)
 
-train_data$FireplaceQu <- na_to_val(train_data$FireplaceQu, 'None')
-test_data$FireplaceQu <- na_to_val(test_data$FireplaceQu, 'None')
+train_data$FireplaceQu <- na_to_none(train_data$FireplaceQu)
+test_data$FireplaceQu <- na_to_none(test_data$FireplaceQu)
 
-train_data$Fence <- na_to_val(train_data$Fence, 'None')
-test_data$Fence <- na_to_val(test_data$Fence, 'None')
+train_data$Fence <- na_to_none(train_data$Fence)
+test_data$Fence <- na_to_none(test_data$Fence)
+
+train_data$MasVnrType <- na_to_none(train_data$MasVnrType)
+# None is already a factor in test data for the below column
+test_data$MasVnrType[is.na(test_data$MasVnrArea)] <- 'None'
+
+train_data$MasVnrArea <- na_to_zero(train_data$MasVnrArea)
+test_data$MasVnrArea <- na_to_zero(test_data$MasVnrArea)
+
+# Basement related attributes for training data
+train_data$BsmtQual <- na_to_none(train_data$BsmtQual)
+train_data$BsmtCond <- na_to_none(train_data$BsmtCond)
+
+train_data$BsmtExposure <- as.character(train_data$BsmtExposure)
+train_data$BsmtExposure[(train_data$TotalBsmtSF == 0) & is.na(train_data$BsmtExposure)] <- 'None'
+train_data$BsmtExposure <- as.factor(train_data$BsmtExposure)
+
+train_data$BsmtFinType1 <- na_to_none(train_data$BsmtFinType1)
+
+train_data$BsmtFinType2 <- as.character(train_data$BsmtFinType2)
+train_data$BsmtFinType2[(train_data$TotalBsmtSF == 0) & is.na(train_data$BsmtFinType2)] <- 'None'
+train_data$BsmtFinType2 <- as.factor(train_data$BsmtFinType2)
+
+# Basement related attributes for test data
+
+
+test_data$Alley <- na_to_none(test_data$Alley)
+
 
 # Merge the train and test datasets after replacing NA's wherever possible
 housing_data <- rbind(train_data, test_data)
