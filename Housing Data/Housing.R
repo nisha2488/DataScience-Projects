@@ -1,12 +1,15 @@
 library(mice)
 
+# Set the working directory
+setwd("C:/Users/Nisha Chandwani/Documents/DM/DM Projects/DM-Projects/Housing Data")
+
 # Load data in R
 
 train_data <- read.csv("train.csv")
 test_data <- read.csv("test.csv")
 
 # Adding Sale Price column to test data
-test_data$SalePrice <- rep(NA, 1459)
+# test_data$SalePrice <- rep(NA, 1459)
 
 
 # Funtion to convert NA to None
@@ -122,14 +125,14 @@ test_data$GarageCond <- as.factor(test_data$GarageCond)
 
 test_data$GarageType <- na_to_none(test_data$GarageType)
 
-# Merge the train and test datasets after replacing NA's wherever possible
-housing_data <- rbind(train_data, test_data)
-
-# Get information regarding categorical and continuous variables and also factor levels
-summary(housing_data)
-
-# Impute the remaining missing values using mice
-imp_housing_data <- mice(housing_data, m=1, method='cart', printFlag = FALSE)
+# # Merge the train and test datasets after replacing NA's wherever possible
+# housing_data <- rbind(train_data, test_data)
+# 
+# # Get information regarding categorical and continuous variables and also factor levels
+# summary(housing_data)
+# 
+# # Impute the remaining missing values using mice
+# imp_housing_data <- mice(housing_data, m=1, method='cart', printFlag = FALSE)
 
 # Above takes a very long time so instead perform the operation separately on training and test data
 
@@ -139,3 +142,6 @@ imp_test_data <- mice(test_data, m=1, method='cart', printFlag = FALSE)
 train_comp <- complete(imp_train_data)
 test_comp <- complete(imp_test_data)
 
+# Write the output, after handling all the missing values, to CSV files
+write.csv(train_comp, file="train_complete.csv")
+write.csv(test_comp, file="test_complete.csv")

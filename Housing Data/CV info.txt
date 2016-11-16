@@ -1,0 +1,9 @@
+Get the relevant predictors for sale price 
+Normalize each factor, mean = 0 and SD = 1
+Convert categorical variables to dummy variables
+
+Cross Validation can be used for-
+1. Checking the accuracy of any given model (Will split training data into 5 parts and iteratively use 1 as test and union of remaining as train data. Get the average accuracy across all iterations to estimate the overall model accuracy.)
+2. Finding the best model. Calculate accuracy for each model and see which gives the best results. Will check each model as mentioned in step 1 and find the best model
+3. Feature selection - Runs 5 CV for each group of variables excluding or including one each time and calculate the mean square error, parameter scoring = 'mean sqaured error' (loss function) for regression and 'accuracy' (profit/gain function) for knn, i.e., for classifiers. We want models with higher accuracy or lower square error. This will give negative values for error and thus we need to take the abs value to make it positive and then as the next step, take the root of this error and take the features which resulted in the minimum root square error.
+https://www.youtube.com/watch?v=6dbrR-WymjI
