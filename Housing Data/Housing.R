@@ -99,17 +99,19 @@ test_data$BsmtFinType2 <- na_to_none(test_data$BsmtFinType2)
 # Garage related attributes for training data
 train_data$GarageType <- na_to_none(train_data$GarageType)
 # Yet to decide whether to factor the year column or not
-# train_data$GarageYrBlt <- na_to_zero(train_data$GarageYrBlt)
-train_data$GarageYrBlt <- na_to_none(train_data$GarageYrBlt)
+train_data$GarageYrBlt <- na_to_zero(train_data$GarageYrBlt)
+# train_data$GarageYrBlt <- na_to_none(train_data$GarageYrBlt)
 train_data$GarageFinish <- na_to_none(train_data$GarageFinish)
 train_data$GarageQual <- na_to_none(train_data$GarageQual)
 train_data$GarageCond <- na_to_none(train_data$GarageCond)
 
 # Garage related attributes for test data
 
-test_data$GarageYrBlt <- as.character(test_data$GarageYrBlt)
-test_data$GarageYrBlt[is.na(test_data$GarageType) & is.na(test_data$GarageYrBlt)] <- 'None'
-test_data$GarageYrBlt <- as.factor(test_data$GarageYrBlt)
+test_data$GarageYrBlt[is.na(test_data$GarageType) & is.na(test_data$GarageYrBlt)] <- na_to_zero(test_data$GarageYrBlt)
+
+# test_data$GarageYrBlt <- as.character(test_data$GarageYrBlt)
+# test_data$GarageYrBlt[is.na(test_data$GarageType) & is.na(test_data$GarageYrBlt)] <- 'None'
+# test_data$GarageYrBlt <- as.factor(test_data$GarageYrBlt)
 
 test_data$GarageFinish <- as.character(test_data$GarageFinish)
 test_data$GarageFinish[is.na(test_data$GarageType) & is.na(test_data$GarageFinish)] <- 'None'
