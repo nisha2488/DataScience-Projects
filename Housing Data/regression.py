@@ -261,9 +261,8 @@ lasso.fit(X_train, sale_price)
 y_lasso = np.exp(lasso.predict(X_test))
 print y_lasso
 
-y_final = (y_ridge + y_lasso)/2
+y_final = (0.7 * y_ridge) + (0.3 * y_lasso)
 
 final_output = pd.DataFrame(data= {'Id' : test.index, 'SalePrice': y_final})
 print final_output.head(10)
 final_output.to_csv('output_ridge.csv', index=False)
-
