@@ -28,10 +28,39 @@ from sklearn.model_selection import cross_val_score
 # plt.interactive(True)
 debug = 0
 
+def is_outlier(points, thresh = 3.5):
+    if len(points.shape) == 1:
+        points = points[:,None]
+    median = np.median(points, axis=0)
+    diff = np.sum((points - median)**2, axis=-1)
+    diff = np.sqrt(diff)
+    med_abs_deviation = np.median(diff)
+
+    modified_z_score = 0.6745 * diff / med_abs_deviation
+
+    return modified_z_score > thresh
+
 # print "Testing various imports"
 
 train = pd.read_csv("train_complete.csv", index_col=0)
 test = pd.read_csv("test_complete.csv", index_col=0)
+
+target = train["SalePrice"]
+target_log = np.log(train["SalePrice"])
+
+# Identify indexes of outliers
+outliers = np.where(is_outlier(target))
+outliers_log = np.where(is_outlier(target_log))
+
+# Create arrays for plotting purposes
+x = target.iloc[outliers].astype(float).values
+y = np.zeros(len(outliers[0]))
+
+x_log = target_log.iloc[outliers_log].astype(float).values
+y_log = np.zeros(len(outliers_log[0]))
+
+train = train.drop(train.index[outliers_log])
+
 # print "Null values in test"
 # print test.isnull().sum().sum()
 # print train.head()
@@ -74,6 +103,8 @@ if debug == 1:
     print "Cat_data below:"
     print cat_data
 
+
+
 # Does the same thing as above code for cat_data
 # cats = []
 # if debug == 1:
@@ -95,6 +126,7 @@ if debug == 1:
 train["SalePrice"] = np.log(train["SalePrice"])
 sale_price = train["SalePrice"].values
 all_data[num_data] = np.log1p(all_data[num_data])
+
 
 # Scale numeric variables
 # scale = StandardScaler()
