@@ -1,7 +1,6 @@
 Pending items:
-Remove outliers
+Remove outliers - Adding this code reduced the score
 Check for feature engineering (combine few features into one and create new features)
 Include random forest and take average of the three models
-Re-write selection of alpha for ridge and lasso -- important
-Include code for removing 2 NA values from utility column in R, just add one line for that
 Check for further improvements
+Changing weights for ridge and lasso improved accuracy
