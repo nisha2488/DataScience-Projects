@@ -1,12 +1,12 @@
-# Assignment 6  
+The task was to identify the correct orientation of a given test image. Implemented k nearest neighbors algorithm to predict the orientation of a given image using the
+training dataset consisting of images and their correct orientation. The main code is in the file orient.py wherein three different solutions for this problem have been implemented using below techniques:
+1. kNN Classifier
+2. AdaBoost
+3. Neural Network Classifier
 
 ## Note:    
 
 Please look at the report for detailed analysis.    
-
-## Conclusion   
-We’ll  recommend Neural Network model to the client as it can be trained on large historical data and the model can be saved for future classifications which is sufficiently fast. 
-This model is already saved in the file 'model-nn.p' and can be readily used for new images.  
 
 ### command to run best model.   
 python orient.py train-data.txt test-data.txt best model-nn.p
