@@ -1,1 +1,1 @@
-# DM-Projects
+# Chatbot created using the IBM Watson Platform
